@@ -78,3 +78,9 @@ I(X, Y) = D_\text{KL}(P(X,Y)\parallel P(X)P(Y)).
 ```
 
 This gives us an intuitive interpretation, where we can think of Mutual Information as the distance the joint distribution is from product of idependent distributions.
+
+The definitions are setup to work like visualized below.
+
+![Mutual Information Diagram][mutual_information_diagram]
+
+[mutual_information_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/39a24978985793611862945fd31875c6fd4f0b08/mutual_information_diagram.png
