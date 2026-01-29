@@ -113,4 +113,4 @@ Baye's rule gives us the chain rule of conditional entropy:
 H(X|Y) = H(X, Y) - H(Y).
 ```
 
-[two_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/39a24978985793611862945fd31875c6fd4f0b08/mutual_information_diagram.png
+[two_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/two_variable_entropy.png
