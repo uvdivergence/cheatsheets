@@ -113,4 +113,17 @@ Baye's rule gives us the chain rule of conditional entropy:
 H(X|Y) = H(X, Y) - H(Y).
 ```
 
-[two_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/two_variable_entropy.png
+## Conditional Kullback-Leibler Divergence
+
+Just for completeness, we are going to define the conditional version of Kullback-Leibler divergence. Given two distribution functions $P(X|Y)$ and $Q(X|Y)$ conditional on $y \in \mathcal{Y}$, we define
+
+```math
+D_\text{KL}(P(X|Y) \parallel Q(X|Y) | P(Y)) = \sum_{y \in \mathcal{Y}} P(Y=y) D_\text{KL}(P(X|Y=y) \parallel Q(X|Y=y)) \\ = \mathbb{E}_{y \sim P_Y}[D_\text{KL}(P(X|Y=y) \parallel Q(X|Y=y))].
+```
+
+## Conditional Mutual Information
+
+Conditional mutual information is useful when quantifying mutual information
+between more than two random variables.
+
+[two_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/two_variable_entropy_diagram.jpg
