@@ -124,6 +124,34 @@ D_\text{KL}(P(X|Y) \parallel Q(X|Y) | P(Y)) = \sum_{y \in \mathcal{Y}} P(Y=y) D_
 ## Conditional Mutual Information
 
 Conditional mutual information is useful when quantifying mutual information
-between more than two random variables.
+between three random variables.
+
+> Definition: Conditional Mutual Information
+
+Let $X, Y, Z$ be discrete random variables taking values in $\mathbb{X}$. The
+conditional mutual information between $X$ and $Y$ given $Z$ is:
+
+```math
+I(X, Y | Z) = H(X | Z) - H(X | Y, Z).
+```
+
+We can visualize this with the following diagram.
+
+![Three Variable Entropy Diagram][three_variable_entropy_diagram]
+
+Be careful, however, as this venn diagram for three variables is a leaky
+abstraction. We can imagine a situation with three variables where knowing any
+of the two variables at the same time does not give any additional information
+about the third variable, yet when we learn about all of the three variables
+at once, we clearly see a relationship between them and so if the following relationship should hold:
+
+```math
+H(X,Y,Z)= H(X) + H(Y) + H(Z) - H(X,Y|Z) - H(X,Z|Y) - H(Z, Y|X) + I(X,Y,Z),
+```
+
+then it must be true that $I(X,Y,Z) = -1$. This is the case for the XOR
+relationship. This is called synergy in information theory and is extremely
+important in cryptography.
 
 [two_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/two_variable_entropy_diagram.jpg
+[three_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/three_variable_entropy_diagram.jpg
