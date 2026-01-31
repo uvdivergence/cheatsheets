@@ -157,6 +157,8 @@ $I(X,Y,Z) = -1$, $H(X,Y,Z) = 2$.
 
 ## Gibbs' Inequality
 
+> Definition: Gibb's Inequality
+
 Gibbs' inequality states that given any two discrete probability distributions $p$ and $q$:
 
 ```math
@@ -194,6 +196,77 @@ Further simplifying and using the fact that $\sum_{x \in \mathcal{X}} q(x) = 1$,
 ```
 
 If we rearrange this using the logarithm identities, we obtain the Gibbs' inequality directly, where equality occurs if and only if $p(x) = q(x)$.
+
+## Log Sum Inequality
+
+The log sum inequality is a useful tool for proving other inequalities.
+
+> Definition: Log Sum Inequality
+
+Let $a_i, \dots, a_n$ and $b_i, \dots, b_n$ be non-negative constants, then:
+
+```math
+\sum_{i=1}^{n} a_i \log \frac{a_i}{b_i} \geq \left(\sum_{i=1}^n a_i \right) \log \frac{\sum_{i}^n a_i}{\sum_{i}^n b_i},
+```
+
+with equality occuring if and only if $\frac{a_i}{b_i} = \text{const}$.
+
+We start by setting $\sum_{i}^n a_i = a$ and $\sum_{i}^n b_i = b$. Then we manipulate the left-hand side of the equation:
+
+```math
+\sum_{i=1}^{n} a_i \log \frac{a_i}{b_i} = \sum_{i=1}^{n} \frac{a_i}{b_i}b_i \log \frac{a_i}{b_i}.
+```
+
+We substitute $f(x) = x \log x$:
+
+
+```math
+\sum_{i=1}^{n} \frac{a_i}{b_i}b_i \log \frac{a_i}{b_i}=\sum_{i=1}^{n} b_i f\left(\frac{a_i}{b_i}\right).
+```
+
+To be able to use Jensen's inequality, we need to normalize $\sum_{i=1}^n c_i = 1$, so we divide by $b$:
+
+
+```math
+\sum_{i=1}^{n} b_i f\left(\frac{a_i}{b_i}\right) = b\sum_{i=1}^{n} \frac{b_i}{b} f\left(\frac{a_i}{b_i}\right).
+```
+
+We observe that $f(x)$ is convex and apply Jensen's inequality:
+
+```math
+b\sum_{i=1}^{n} \frac{b_i}{b} f\left(\frac{a_i}{b_i}\right) \geq b f \left(\sum_{i=1}^n \frac{b_i}{b} \frac{a_i}{b_i}\right).
+```
+
+We simplify to:
+
+```math
+\sum_{i=1}^{n} \frac{b_i}{b} f\left(\frac{a_i}{b_i}\right) \geq f \left(\frac{a}{b}\right),
+```
+
+undoing the substitution we get:
+
+
+```math
+\sum_{i=1}^{n} \frac{b_i}{b} \frac{a_i}{b_i} \log \left(\frac{a_i}{b_i}\right) \geq \frac{a}{b} \log \left(\frac{a}{b}\right).
+```
+
+By further simplifying we arrive at:
+
+```math
+\sum_{i=1}^{n} a_i \log \left(\frac{a_i}{b_i}\right) \geq a \log \left(\frac{a}{b}\right),
+```
+
+which is what we wanted to prove.
+
+## Properties of the Kullback-Leibler Divergence
+
+The Kullback-Liebler divergence has the following properties:
+
+ 1. $D_\text{KL}(p(x) \parallel q(x)) \geq 0$, with $D_\text{KL}(p(x) \parallel q(x)) = 0 \Leftrightarrow p(x) = q(x)$ (Information inequality),
+ 2. $D_\text{KL}(p(x, y) \parallel q(x,y)) = D_\text{KL}(p(x | y) \parallel q(x | y) | p(y)) + D_\text{KL}(p(y) \parallel q(y))$ (Chain rule),
+ 3. $D_\text{KL}(p(x, y) \parallel q(x, y)) \geq D_\text{KL}(p(x) \parallel q(x))$,
+ 4. $D_\text{KL}(p(x | y) \parallel q(x | y) | p(y)) = D_\text{KL}(p(y)p(x | y) \parallel p(y)q(x | y))$,
+ 5. Given distribution functions $p_1, p_2, q_1, q_2$ and $\lambda \in [0, 1]$: $D_\text{KL}(\lambda p_1 + (1 - \lambda) p_2 \parallel \lambda q_1 +  (1-\lambda) q_2) \leq \lambda D_\text{KL}(p_1 \parallel q_1) + (1 - \lambda) D_\text{KL}(p_2 \parallel q_2)$.
 
 [two_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/two_variable_entropy_diagram.jpg
 [three_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/three_variable_entropy_diagram.jpg
