@@ -151,7 +151,9 @@ H(X,Y,Z)= H(X) + H(Y) + H(Z) - H(X,Y|Z) - H(X,Z|Y) - H(Z, Y|X) + I(X,Y,Z),
 
 then it must be true that $I(X,Y,Z) = -1$. This is the case for the XOR
 relationship. This is called synergy in information theory and is extremely
-important in cryptography.
+important in cryptography. For the three variable XOR relationship $H(X) = 1$,
+$H(Y) = 1$, $H(Z) = 1$, $H(X, Y) = 2$, $H(X, Z) = 2$, $H(Z, Y) = 2$,
+$I(X,Y,Z) = -1$, $H(X,Y,Z) = 2$.
 
 [two_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/two_variable_entropy_diagram.jpg
 [three_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/three_variable_entropy_diagram.jpg
