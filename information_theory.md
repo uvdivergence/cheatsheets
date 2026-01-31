@@ -155,5 +155,45 @@ important in cryptography. For the three variable XOR relationship $H(X) = 1$,
 $H(Y) = 1$, $H(Z) = 1$, $H(X, Y) = 2$, $H(X, Z) = 2$, $H(Z, Y) = 2$,
 $I(X,Y,Z) = -1$, $H(X,Y,Z) = 2$.
 
+## Gibbs' Inequality
+
+Gibbs' inequality states that given any two discrete probability distributions $p$ and $q$:
+
+```math
+\sum_{x \in \mathcal{X}} p(x) \log p(x) \geq \sum_{x \in \mathcal{X}} p(x) \log q(x).
+```
+
+The direct consequence of this is that $D_\text{KL}(p \parallel q) \geq 0$. To prove this, we start with Jensen's inequality:
+
+```math
+\mathbb{E}[\varphi(X)] \geq \varphi(\mathbb{E}(X)),
+```
+
+where $\varphi(x)$ is a convex function. We observe that:
+
+```math
+\sum_{x \in \mathcal{X}} p(x) \log \frac{p(x)}{q(x)} = \sum_{x \in \mathcal{X}} - p(x) \log \frac{q(x)}{p(x)} = \mathbb{E}_{X \sim p}\left[-\log \frac{q(X)}{p(X)}\right],
+```
+
+where $- \log (x)$ is a convex function, so we can apply Jensen's inequality:
+
+```math
+\mathbb{E}_{X \sim p}\left[- \log \frac{q(X)}{p(X)} \right] \geq -\log \mathbb{E}_{X \sim p}\left[\frac{q(X)}{p(X)}\right].
+```
+
+Expanding the expected value operators, we get:
+
+```math
+\sum_{x \in \mathcal{X}} p(x) \log \frac{p(x)}{q(x)} \geq - \log \sum_{x \in \mathcal{X}} p(x) \frac{q(x)}{p(x)}.
+```
+
+Further simplifying and using the fact that $\sum_{x \in \mathcal{X}} q(x) = 1$, we get:
+
+```math
+\sum_{x \in \mathcal{X}} p(x) \log \frac{p(x)}{q(x)} \geq 0.
+```
+
+If we rearrange this using the logarithm identities, we obtain the Gibbs' inequality directly, where equality occurs if and only if $p(x) = q(x)$.
+
 [two_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/two_variable_entropy_diagram.jpg
 [three_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/three_variable_entropy_diagram.jpg
