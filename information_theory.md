@@ -370,11 +370,31 @@ We're now going to prove the mentioned properties:
 ## Entropy Properties
 
 Following are some more interesting properties of entropy:
- 1. $0 \leq H(X) \leq \log |\mathcal{X}|$,
- 2. $0 \leq H(X|Y) \leq H(X)$, where $H(X|Y) = H(X) \Leftrightarrow X \perp \!\!\! \perp Y$ and $H(X | Y) = 0 \Leftrightarrow X = f(Y)$,
- 3. $H(X_1, \dots, X_n) = \sum_{i=1}^n H(X_i | X_{i - 1}, \dots, X_1) \leq \sum_{i=1}^n H(X_i)$,
- 4. Given $f: \mathcal{X} \to \mathcal{Y}$, $H(f(X)) \leq H(X)$, where $H(f(X)) = H(X) \Leftrightarrow f \text{ is injective}$,
+ 1. $0 \leq H(X) \leq \log |\mathcal{X}|$, where the lower bound is attained if and only if $X$ is constant and the upper bound is attained if $X$ is uniform.
+ 2. $0 \leq H(X|Y) \leq H(X)$, where $H(X|Y) = H(X) \Leftrightarrow X \perp \!\!\! \perp Y$ and $H(X | Y) = 0 \Leftrightarrow X = f(Y)$.
+ 3. $H(X_1, \dots, X_n) = \sum_{i=1}^n H(X_i | X_{i - 1}, \dots, X_1) \leq \sum_{i=1}^n H(X_i)$.
+ 4. Given $f: \mathcal{X} \to \mathcal{Y}$, $H(f(X)) \leq H(X)$, where $H(f(X)) = H(X) \Leftrightarrow f \text{ is injective}$.
  5. If $X, Y$ are independent and identically distributed, then $\mathbb{P}(X=Y) \geq 2^{-H(X)}$.
+ 6. $H(X)$ is concave in $p(x)$.
+
+We now prove these statements:
+ 1. From the definition of entropy:
+ ```math
+ H(X) = -\sum_{x \in \mathcal{X}} p(x) \log p(x),
+ ```
+ we observe that $p(x) \log p(x) \leq 0$, because $p(x) \in [0,1]$, therefore $- p(x) \log p(x) \geq 0$. For the upper bound, we set $q(x) = \frac{1}{|\mathcal{X}|}$ and apply Gibbs' inequality.
+
+ 2. We know that $0 \leq I(X;Y)$ and also $I(X;Y) = H(X) - H(X|Y)$. Thus $H(X|Y) \leq H(X)$. For the lower bound $H(X|Y) = \sum_{y \in \mathcal{Y}} p(y) H(X |Y=y)$, where we have already proven that $H(X) \geq 0$ and $p(y)$ is non-negative.
+
+ 3. From properties of mutual information.
+ 4. $H(X, f(X)) = H(X) + H(f(X) | X)$, but from point 2. we know $H(X | f(X)) = 0$, so $H(X, f(X)) = H(X)$. Also, $H(f(X), X) = H(f(X)) + H(X | f(X)) \geq H(X)$. We can't say much about $H(X | f(X))$, because we could have lost a lot of information about $X$ when applying $f(x)$, nonetheless $H(X | f(X)) \geq 0$, with zero when $f(x)$ is injective.
+ 5. We realize $2^{-H(X)} = 2^{\mathbb{E[\log p(x)]}}$ and use Jensen's inequality:
+
+ ```math
+ 2^{\mathbb{E}[\log p(x)]} \leq \mathbb{E}[2^{\log p(x)}] = \mathbb{E}[p(X)] = \sum_{x \in \mathcal{X}} p(X) p(X) = \mathbb{P}(X=Y).
+ ```
+
+ 6. $g(x) = -x \log x$ is concave and adding concave functions results in concave function.
 
 [two_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/two_variable_entropy_diagram.jpg
 [three_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/three_variable_entropy_diagram.jpg
