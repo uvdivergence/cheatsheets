@@ -367,6 +367,14 @@ We're now going to prove the mentioned properties:
 
  5. The same argument as above, but with the substitution $Z = f(Y)$.
 
+## Entropy Properties
+
+Following are some more interesting properties of entropy:
+ 1. $0 \leq H(X) \leq \log |\mathcal{X}|$,
+ 2. $0 \leq H(X|Y) \leq H(X)$, where $H(X|Y) = H(X) \Leftrightarrow X \perp \!\!\! \perp Y$ and $H(X | Y) = 0 \Leftrightarrow X = f(Y)$,
+ 3. $H(X_1, \dots, X_n) = \sum_{i=1}^n H(X_i | X_{i - 1}, \dots, X_1) \leq \sum_{i=1}^n H(X_i)$,
+ 4. Given $f: \mathcal{X} \to \mathcal{Y}$, $H(f(X)) \leq H(X)$, where $H(f(X)) = H(X) \Leftrightarrow f \text{ is injective}$,
+ 5. If $X, Y$ are independent and identically distributed, then $\mathbb{P}(X=Y) \geq 2^{-H(X)}$.
 
 [two_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/two_variable_entropy_diagram.jpg
 [three_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/three_variable_entropy_diagram.jpg
