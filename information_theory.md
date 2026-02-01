@@ -318,7 +318,55 @@ We now leverage the previously proven properties of the KL divergence to prove t
  4. $X \perp \!\!\! \perp Z | Y \implies I(X, Y) \geq I(X, Z)$ (Information processing inequality),
  5. Let $f: \mathcal{Y} \to \mathcal{Z}$, then $I(X, Y) \geq I(X, f(Y))$.
 
-The information processing inequality states that if $X$ and $Z$ are independent given we already know $Y$, there must be more information from $Y$ about $X$ than there is about $X$ from $Z$. The consequence of this is that given there is a processing pipeline $X \to Y \to Z$, I cannot learn from $Z$ about $X$ more than I can learn from $Y$ about $X$, i.e. the processing functions may at best be losless and no information is discarded, but they cannot generate new information. Other way of saying this is that $X \to Y \to Z$ is a Markov chain. 
+The information processing inequality states that if $X$ and $Z$ are independent given we already know $Y$, there must be more information from $Y$ about $X$ than there is about $X$ from $Z$. The consequence of this is that given there is a processing pipeline $X \to Y \to Z$, I cannot learn from $Z$ about $X$ more than I can learn from $Y$ about $X$, i.e. the processing functions may at best be losless and no information is discarded, but they cannot generate new information. Other way of saying this is that $X \to Y \to Z$ is a Markov chain.
+
+We're now going to prove the mentioned properties:
+ 1. $I(X, Y) = D_\text{KL}(p(x,y) \parallel p(x)p(y)) \geq 0$,
+ 2. By trivial algebra,
+ 3. We start with the original definition:
+ ```math
+ I(X_1, \dots X_n; Y) = H(X_1, \dots X_n) - H(X_1, \dots X_n | Y).
+ ```
+ First we break up the first term on the right-hand side of the equation into sum of conditional entropies:
+ ```math
+ H(X_1, \dots X_n) = \sum_{i=1}^n H(X_i | X_{i-1}, \dots, X_{1}).
+ ```
+ We can also do the same for the second term:
+ ```math
+ H(X_1, \dots X_n | Y) = \sum_{i=1}^n H(X_i | X_{i-1}, \dots, X_{1}, Y).
+ ```
+ And then we can rewrite the original statement as:
+ ```math
+ I(X_1, \dots X_n; Y) = \sum_{i=1}^n \{ H(X_i | X_{i-1}, \dots, X_{1}) - H(X_i | X_{i-1}, \dots, X_{1}, Y)\}.
+ ```
+ Now we realize that the term in the brackets is the definition of conditional mutual information, so we can rewrite this as:
+
+ ```math
+ I(X_1, \dots X_n; Y) = \sum_{i=1}^n I(X_i;Y | X_{i-1}, \dots X_1).
+ ```
+
+ This is what we wanted to prove.
+
+ 4. We start with the chain rule:
+ ```math
+ I(Y, Z; X) = I(Y; X) + I(Z; X | Y), 
+ ```
+ but the initial assumption was that $X \perp \!\!\! \perp Z | Y$, thus $I(Z; X | Y) = 0$, thus:
+
+ ```math
+ I(Y, Z; X) = I(Y; X).
+ ```
+
+ If we swap the order of the variables:
+
+ ```math
+ I(Y,Z;X) = I(Z, Y; X) = I(Z; X) + I(Y;X|Z) \geq I(Z;X),
+ ```
+
+ because $I(Y;X|Z)$ is just a KL divergence.
+
+ 5. The same argument as above, but with the substitution $Z = f(Y)$.
+
 
 [two_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/two_variable_entropy_diagram.jpg
 [three_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/three_variable_entropy_diagram.jpg
