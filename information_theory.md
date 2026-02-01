@@ -308,5 +308,17 @@ Now we give the proofs to these statements:
  ```
  Now we just sum both sides of the inequality over $x$ and we get the original statement, which is what we wanted to prove.
 
+## Properties of Mutual Information
+
+We now leverage the previously proven properties of the KL divergence to prove the following properties about mutual information:
+
+ 1. $I(X, Y) \geq 0$, where $I(X, Y) = 0 \Leftrightarrow X \perp \!\!\! \perp Y$,
+ 2. $I(X, Y) = I(Y, X) = H(X) - H(X | Y) = H(Y) - H(Y | X)$,
+ 3. $I((X_1, \dots X_n), Y) = \sum_{i=1}^n I(X_i, Y | X_{i -1}, \dots X_n)$ (Information chain rule),
+ 4. $X \perp \!\!\! \perp Z | Y \implies I(X, Y) \geq I(X, Z)$ (Information processing inequality),
+ 5. Let $f: \mathcal{Y} \to \mathcal{Z}$, then $I(X, Y) \geq I(X, f(Y))$.
+
+The information processing inequality states that if $X$ and $Z$ are independent given we already know $Y$, there must be more information from $Y$ about $X$ than there is about $X$ from $Z$. The consequence of this is that given there is a processing pipeline $X \to Y \to Z$, I cannot learn from $Z$ about $X$ more than I can learn from $Y$ about $X$, i.e. the processing functions may at best be losless and no information is discarded, but they cannot generate new information. Other way of saying this is that $X \to Y \to Z$ is a Markov chain. 
+
 [two_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/two_variable_entropy_diagram.jpg
 [three_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/three_variable_entropy_diagram.jpg
