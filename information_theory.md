@@ -266,7 +266,47 @@ The Kullback-Liebler divergence has the following properties:
  2. $D_\text{KL}(p(x, y) \parallel q(x,y)) = D_\text{KL}(p(x | y) \parallel q(x | y) | p(y)) + D_\text{KL}(p(y) \parallel q(y))$ (Chain rule),
  3. $D_\text{KL}(p(x, y) \parallel q(x, y)) \geq D_\text{KL}(p(x) \parallel q(x))$,
  4. $D_\text{KL}(p(x | y) \parallel q(x | y) | p(y)) = D_\text{KL}(p(y)p(x | y) \parallel p(y)q(x | y))$,
- 5. Given distribution functions $p_1, p_2, q_1, q_2$ and $\lambda \in [0, 1]$: $D_\text{KL}(\lambda p_1 + (1 - \lambda) p_2 \parallel \lambda q_1 +  (1-\lambda) q_2) \leq \lambda D_\text{KL}(p_1 \parallel q_1) + (1 - \lambda) D_\text{KL}(p_2 \parallel q_2)$.
+ 5. Given distribution functions $p_1, p_2, q_1, q_2$ and $\lambda \in [0, 1]$: $(D_\text{KL}(\lambda p_1 + (1 - \lambda) p_2 \parallel \lambda q_1 +  (1-\lambda) q_2) \leq \lambda D_\text{KL}(p_1 \parallel q_1) + (1 - \lambda) D_\text{KL}(p_2 \parallel q_2))$.
+
+
+Now we give the proofs to these statements:
+ 1. Thi is just Gibbs' inequality,
+ 2. We start by applying the definition of conditional probability to $p$ and $q$:
+
+ ```math
+ D_\text{KL}(p(x, y) \parallel q(x,y)) = \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} p(x|y) p(y) \log \frac{p(x|y) p(y)}{q(x|y) q(y)}.
+ ```
+
+ We then use logarithm identities and rearrange to get:
+
+ ```math
+ D_\text{KL}(p(x, y) \parallel q(x,y)) = \sum_{y \in \mathcal{Y}} p(y) \sum_{x \in \mathcal{X}} p(x|y) \log \frac{p(x|y)}{q(x|y)} + \sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} p(x | y) p(y) \log \frac{p(y)}{q(y)}.
+ ```
+
+ This can then be easily rarranged to the desired form:
+
+ ```math
+ D_\text{KL}(p(x, y) \parallel q(x,y)) = \sum_{y \in \mathcal{Y}} p(y) \sum_{x \in \mathcal{X}} p(x|y) \log \frac{p(x|y)}{q(x|y)} + \sum_{y \in \mathcal{Y}} p(y) \log \frac{p(y)}{q(y)},
+ ```
+
+ which is what we wanted to prove.
+
+ 3. By using the Chain rule and Gibbs' inequality.
+ 4. Trivially by just multiplying the fraction in the logarithm by $\frac{p(y)}{p(y)}$.
+ 5. We start with the log sum inequality:
+ ```math
+ \sum_{i=1}^{n} a_i \log \left(\frac{a_i}{b_i}\right) \geq a \log \left(\frac{a}{b}\right),
+ ```
+ and we set:
+ ```math
+ a_1 = \lambda p_1(x), a_2 = (1-\lambda) p_2(x) \\
+ b_1 = \lambda q_1(x), b_2 = (1-\lambda) q_2(x).
+ ```
+ We get:
+ ```math
+ (\lambda p_1(x) + (1-\lambda) p_2(x)) \log \frac{\lambda p_1(x) + (1-\lambda) p_2(x)}{\lambda q_1(x) + (1-\lambda) q_2(x)} \leq \lambda p_1(x) \log \frac{p_1(x)}{q_2(x)} + (1-\lambda)p_2(x) \frac{p_2(x)}{q_2(x)}.
+ ```
+ Now we just sum both sides of the inequality over $x$ and we get the original statement, which is what we wanted to prove.
 
 [two_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/two_variable_entropy_diagram.jpg
 [three_variable_entropy_diagram]: https://raw.githubusercontent.com/uvdivergence/cheatsheets/refs/heads/main/three_variable_entropy_diagram.jpg
